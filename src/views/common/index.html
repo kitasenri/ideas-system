@@ -1,0 +1,28 @@
+<html>
+    
+    <head>
+
+        {{ template "head" . }}
+                
+    </head>
+            
+    <body>
+
+        {{/* Header */}}
+        <header>
+            {{ template "navigation" . }}
+        <header>
+            
+        {{/* Contents Sequence */}}
+        <div class="container">
+            {{ template "contents" . }}
+        </div>
+
+        {{/* Footer */}}
+        <footer>    
+            {{ template "footer" . }}
+        </footer>
+    
+    </body>
+
+</html>

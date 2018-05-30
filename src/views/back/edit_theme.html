@@ -1,0 +1,314 @@
+<html>
+        
+    <head>
+        
+        {{ template "head" . }}
+        
+        <script>
+        $(function () {
+
+            var _w = window;
+            var themeKeys = {
+                'Id'                   : _w.ID_TEXTINPUT,
+                'Name'                 : _w.ID_TEXTINPUT,
+                'Title'                : _w.ID_TEXTINPUT,
+                'Css'                  : _w.ID_TEXTAREA,
+                'Script'               : _w.ID_TEXTAREA,
+                'SearchWindowTitle'    : _w.ID_TEXTINPUT,
+                'SearchWindowMessage'  : _w.ID_TEXTINPUT,
+                'SearchWindowImageURL' : _w.ID_TEXTINPUT,
+                'Message1'             : _w.ID_TEXTAREA,
+                'Message2'             : _w.ID_TEXTAREA,
+                'Message3'             : _w.ID_TEXTAREA,
+                'Message4'             : _w.ID_TEXTAREA,
+                'Message5'             : _w.ID_TEXTAREA,
+                'Version'              : _w.ID_HIDDEN,
+                'Deleted'              : _w.ID_CHECKBOX,
+            };
+
+            //---------------------------------------------------------------------------
+            // 
+            //---------------------------------------------------------------------------
+            /** 
+             * 保存ボタンを押下時のイベントハンドラ
+             * 
+             * @param event MouseEvent
+             */
+            $('#saveButton').click(
+                function( event ) {
+
+                    var isEdit = $("#isEdit").val();
+                    var servicePath = (isEdit == "T") ? '/theme/update' : '/theme/create';
+                    var param = _w.getEditingData( themeKeys );
+
+                    _w.callService(
+                        servicePath,
+                        param,
+                        callBackServer
+                    );
+
+                }
+            );
+
+            /** 
+             * Sync button clicked handler
+             * 
+             * @param event MouseEvent
+             */
+            $('#deleteButton').click(
+                function( event ) {
+
+                    if ( window.confirm('削除します。よろしいですか？') != true ){
+                        return;
+                	}
+
+                    var servicePath = '/theme/delete';
+                    var param = {
+                        Id: $('#Id').val()
+                    };
+
+                    _w.callService(
+                        servicePath,
+                        param,
+                        callBackServer
+                    );
+
+                }
+            );
+
+            /** 
+             * Return to top button clicked handler
+             * 
+             * @param event MouseEvent
+             */
+            $('#returnButton').click(
+                function( event ) {
+                    window.location.href = '/';
+                }
+            );
+
+            /**
+             * 保存の処理結果
+             *
+             * @param level int
+             * @param result
+             */
+            function callBackServer( level, result ) {
+
+                result = result || {};
+                if ( level == _s.LEVEL_SUCCESS && result['status'] == 'OK' ) {
+
+                    window.showBalooon( 
+                        '処理に成功しました。３秒後にトップに遷移します。', 
+                        function() {
+                            $.cookie( "openTag", "tab-theme", { expires: 1800 });
+                            window.location.href = '/';
+                        }
+                    );
+
+                } else {
+
+                    var errorInfo = (result.errorInfo != null) ? result.errorInfo : [];
+                    window.showBalooon( 
+                        errorInfo.join('<br />')
+                    );
+
+                }
+
+            };
+
+        });
+        </script>
+
+    </head>
+        
+    <body>
+        
+        {{ template "navigation" . }}
+
+        <div class="container">
+
+
+            {{/* Theme ID */}}
+            <div class="form-group row">
+                <label for="Id" class="col-2 col-form-label">
+                    Theme ID
+                </label>
+                <div class="col-10">
+                    <input id="Id" type="text" class="form-control"
+                           aria-describedby="inputId"
+                           value="{{ .theme.Id }}" 
+                           {{ if .isEdit }} readonly {{ end }}
+                    >
+                    <small id="inputId" class="form-text text-muted">
+                        一度確定すると変更できないため、注意してください。
+                    </small>
+                </div>
+            </div>
+
+
+            {{/* Name */}}
+            <div class="form-group row">
+                <label for="Name" class="col-2 col-form-label">
+                    Theme Name
+                </label>
+                <div class="col-10">
+                    <input id="Name" type="text" class="form-control"
+                           value="{{ .theme.Name }}"
+                    >
+                </div>
+            </div>
+
+
+            {{/* Title */}}
+            <div class="form-group row">
+                <label for="Title" class="col-2 col-form-label">
+                    Page Title
+                </label>
+                <div class="col-10">
+                    <input id="Title" type="text" class="form-control"
+                           value="{{ .theme.Title }}"
+                    >
+                </div>
+            </div>
+
+
+            {{/* Css */}}
+            <div class="form-group row">
+                <label for="Css" class="col-2 col-form-label">
+                    Page CSS
+                </label>
+                <div class="col-10">
+                    <textarea id="Css" rows="5" class="form-control">{{ .theme.Css }}</textarea>
+                </div>
+            </div>
+
+
+            {{/* Script */}}
+            <div class="form-group row">
+                <label for="Script" class="col-2 col-form-label">
+                    Page Script
+                </label>
+                <div class="col-10">
+                    <textarea id="Script" rows="5" class="form-control">{{ .theme.Script }}</textarea>
+                </div>
+            </div>
+
+
+            {{/* SearchWindowTitle */}}
+            <div class="form-group row">
+                <label for="SearchWindowTitle" class="col-2 col-form-label">
+                    検索窓のタイトル
+                </label>
+                <div class="col-10">
+                    <input id="SearchWindowTitle" type="text" class="form-control"
+                           value="{{ .theme.SearchWindowTitle }}"
+                           >
+                </div>
+            </div>
+
+
+            {{/* SearchWindowMessage */}}
+            <div class="form-group row">
+                <label for="SearchWindowMessage" class="col-2 col-form-label">
+                    検索窓のメッセージ
+                </label>
+                <div class="col-10">
+                    <input id="SearchWindowMessage" type="text" class="form-control"
+                           value="{{ .theme.SearchWindowMessage }}"
+                           >
+                </div>
+            </div>
+
+
+            {{/* SearchWindowImageURL */}}
+            <div class="form-group row">
+                <label for="SearchWindowImageURL" class="col-2 col-form-label">
+                    検索窓の画像
+                </label>
+                <div class="col-10">
+                    <input id="SearchWindowImageURL" type="text" class="form-control"
+                           value="{{ .theme.SearchWindowImageURL }}"
+                           >
+                </div>
+            </div>
+
+
+            {{/* Message1 */}}
+            <div class="form-group row">
+                <label for="Message1" class="col-2 col-form-label">
+                    Message1
+                </label>
+                <div class="col-10">
+                    <textarea id="Message1" rows="5" class="form-control">{{ .theme.Message1 }}</textarea>
+                </div>
+            </div>
+
+
+            {{/* Message2 */}}
+            <div class="form-group row">
+                <label for="Message2" class="col-2 col-form-label">
+                    Message2
+                </label>
+                <div class="col-10">
+                    <textarea id="Message2" rows="5" class="form-control">{{ .theme.Message2 }}</textarea>
+                </div>
+            </div>
+
+
+            {{/* Message3 */}}
+            <div class="form-group row">
+                <label for="Message3" class="col-2 col-form-label">
+                    Message3
+                </label>
+                <div class="col-10">
+                    <textarea id="Message3" rows="5" class="form-control">{{ .theme.Message3 }}</textarea>
+                </div>
+            </div>
+
+
+            {{/* Message4 */}}
+            <div class="form-group row">
+                <label for="Message4" class="col-2 col-form-label">
+                    Message4
+                </label>
+                <div class="col-10">
+                    <textarea id="Message4" rows="5" class="form-control">{{ .theme.Message4 }}</textarea>
+                </div>
+            </div>
+
+
+            {{/* Message5 */}}
+            <div class="form-group row">
+                <label for="Message5" class="col-2 col-form-label">
+                    Message5
+                </label>
+                <div class="col-10">
+                    <textarea id="Message5" rows="5" class="form-control">{{ .theme.Message5 }}</textarea>
+                </div>
+            </div>
+
+
+            {{/* Deleted */}}
+            <div class="form-group row">
+                <label for="Deleted" class="col-2 col-form-label">
+                    非公開
+                </label>
+                <div class="col-10">
+                    <input id="Deleted" type="checkbox" style="width: 60px; height: 60px;"
+                           {{ if .theme.Deleted }} checked {{ end }}
+                           >
+                </div>
+            </div>
+
+            <input type="hidden" id="Version"
+                value="{{ .theme.Version }}"
+                />
+        
+            {{ template "edit_footer" . }}
+
+        </div>
+
+    </body>
+
+</html>

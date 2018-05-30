@@ -1,0 +1,31 @@
+{{ define "edit_footer" }}
+
+<div class="form-group row">
+
+    <button id="saveButton" class="btn btn-outline-primary mr-2">
+        保存
+    </button>
+
+    {{ if ne .isEdit false }}
+    <button id="deleteButton" class="btn btn-outline-danger mr-2">
+        削除
+    </button>
+    {{ end }}
+    
+    <button id="returnButton" class="btn btn-outline-info mr-2">
+        戻る
+    </button>
+    
+</div>
+
+<div id="ballon" class="balloon">
+    <span id="errorMessage"></span>
+</div>
+
+
+<input type="hidden" id="isEdit"
+    {{ if .isEdit }} value="T" {{ else }} value="F" {{ end }}
+    />
+
+
+{{ end }}

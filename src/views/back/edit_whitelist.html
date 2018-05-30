@@ -1,0 +1,117 @@
+
+<html>
+        
+    <head>
+
+        {{ template "head" . }}
+
+        <script>
+            $(function () {
+        
+                var _w = window;
+
+                $('button[name=updateButton]').click(
+                    function( event ) {
+        
+                        $this = $(event.currentTarget);
+                        var isWhitelist = $this.data('value');
+                        var servicePath = (isWhitelist) ? '/whitelist/delete' : '/whitelist/create';
+                        var param = {
+                            ThemeId: $this.data('theme'),
+                            StyleId: $this.data('style'),
+                            ItemId:  $this.data('item')
+                        };
+        
+                        _w.callService(
+                            servicePath,
+                            param,
+                            callBackServer
+                        );
+        
+                    }
+                );
+        
+                /**
+                 * 保存の処理結果
+                 *
+                 * @param level int
+                 * @param result
+                 */
+                function callBackServer( level, result ) {
+        
+                    result = result || {};
+                    if ( level == _s.LEVEL_SUCCESS && result['status'] == 'OK' ) {
+                        window.location.reload();
+                    }
+        
+                };
+        
+            });
+        </script>
+        
+    </head>
+
+    <body>
+
+        {{ template "navigation" . }}
+
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a id="tab1" href="#tab-style" class="nav-link" 
+                    data-toggle="tab" role="tab" aria-controls="tab-style" aria-selected="true">
+                    スタイル
+                </a>
+            </li>
+            <li class="nav-item">
+                <a id="tab2" href="#tab-item" class="nav-link"
+                    data-toggle="tab" role="tab" aria-controls="tab-item" aria-selected="false">
+                    アイテム
+                </a>
+            </li>
+        </ul>
+
+        <div id="mainContent" class="tab-content" style="display: none;">
+
+            <!-- Style List -->
+            <div id="tab-style" class="tab-pane fade"
+                    role="tabpanel" aria-labelledby="style">
+                    {{ template "whitelist_style" . }}
+            </div>
+
+            <!-- Item List -->
+            <div id="tab-item" class="tab-pane fade"
+                    role="tabpanel" aria-labelledby="item">
+                    {{ template "whitelist_item" . }}
+            </div>
+
+        </div>
+        
+        <script>
+
+            //----------------------------------------------------------------
+            // Initialize tab position by using cookie.
+            //----------------------------------------------------------------
+            if ( $.cookie("openTag-whitelist") ) {
+                $('a[href="#' + $.cookie("openTag-whitelist") +'"]').click();
+            } else {
+                $('a[href="#tab-style"]').click();
+            }
+
+            $('a[data-toggle="tab"]').on(
+                'show.bs.tab',
+                function (e) {
+                    var tabName = e.target.href;
+                    var items = tabName.split("#");
+                    $.cookie("openTag-whitelist",items[1], { expires: 1800 });
+                }
+            );
+
+            $("#mainContent").show();
+
+        </script>
+
+    </body>
+
+</html>
+        
+        

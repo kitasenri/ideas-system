@@ -1,0 +1,27 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  {{ $page_info := .page_info }}
+  {{ range $ii_t, $vv_t := $page_info }}
+
+    {{ $theme := $vv_t.Theme }}
+    {{ $styles := $vv_t.Styles }}
+    {{ $items := $vv_t.Items }}
+
+    {{ $last_modified := "" | get_last_modified }}
+    {{ $server_info := "" | get_front_server_info }}
+
+    {{ range $ii_s, $style := $styles }}
+      {{ range $ii_i, $item := $items }}
+
+        <url>
+          <loc>{{ $server_info.Scheme }}://{{ $server_info.Domain }}/{{ $server_info.Context }}/{{ $theme.Id }}_{{ $style.Id }}_{{ $item.Id }}</loc>
+          <lastmod>{{ $last_modified }}</lastmod>
+          <changefreq>daily</changefreq>
+          <priority>0.6</priority>
+        </url>
+
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+</urlset>

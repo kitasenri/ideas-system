@@ -1,0 +1,146 @@
+
+<html>
+
+    <head>
+
+        {{ template "head" . }}
+
+        <script>
+            $(function () {
+        
+                var _w = window;
+
+                $('button[name=updateDeletedButton]').click(
+                    function( event ) {
+        
+                        $this = $(event.currentTarget);
+                        var type = $this.data('type');
+                        var servicePath = '/' + type + '/updateDeleted';
+                        var param = {
+                            Id: $this.data('id'),
+                            Deleted: !$this.data('status')
+                        };
+        
+                        _w.callService(
+                            servicePath,
+                            param,
+                            callBackServer
+                        );
+        
+                    }
+                );
+        
+                $('button[name=syncButton]').click(
+                    function( event ) {
+        
+                        $this = $(event.currentTarget);
+                        var type = $this.data('type');
+                        var servicePath = '/' + type + '/sync';
+                        var param = {
+                            Id: $this.data('id'),
+                        };
+        
+                        _w.callService(
+                            servicePath,
+                            param,
+                            callBackServer
+                        );
+        
+                    }
+                );
+        
+                /**
+                 * 保存の処理結果
+                 *
+                 * @param level int
+                 * @param result
+                 */
+                function callBackServer( level, result ) {
+        
+                    result = result || {};
+                    if ( level == _s.LEVEL_SUCCESS && result['status'] == 'OK' ) {
+                        window.location.reload();
+                    }
+        
+                };
+        
+            });
+        </script>
+        
+    </head>
+
+    <body>
+
+        {{ template "navigation" . }}
+
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a id="tab1" href="#tab-theme" class="nav-link" 
+                   data-toggle="tab" role="tab" aria-controls="tab-theme" aria-selected="true">
+                    テーマ
+                </a>
+            </li>
+            <li class="nav-item">
+                <a id="tab2" href="#tab-style" class="nav-link"
+                   data-toggle="tab" role="tab" aria-controls="tab-style" aria-selected="false">
+                    スタイル
+                </a>
+            </li>
+            <li class="nav-item">
+                <a id="tab3" href="#tab-item" class="nav-link"
+                   data-toggle="tab" role="tab" aria-controls="tab-item" aria-selected="false">
+                    アイテム
+                </a>
+            </li>
+        </ul>
+
+        <div id="mainContent" class="tab-content" style="display: none;">
+
+            <!-- Theme List -->
+            <div id="tab-theme" class="tab-pane fade"
+                 role="tabpanel" aria-labelledby="tab1">
+                 {{ template "list_theme" .themeList }}
+            </div>
+
+            <!-- Style List -->
+            <div id="tab-style" class="tab-pane fade"
+                 role="tabpanel" aria-labelledby="tab2">
+                 {{ template "list_style" .styleList }}
+            </div>
+
+            <!-- Item List -->
+            <div id="tab-item" class="tab-pane fade"
+                 role="tabpanel" aria-labelledby="tab3">
+                 {{ template "list_item" .itemList }}
+            </div>
+    
+        </div>
+        
+        <script>
+
+            //----------------------------------------------------------------
+            // Initialize tab position by using cookie.
+            //----------------------------------------------------------------
+            if ( $.cookie("openTag") ) {
+                $('a[href="#' + $.cookie("openTag") +'"]').click();
+            } else {
+                $('a[href="#tab-theme"]').click();
+            }
+
+            $('a[data-toggle="tab"]').on(
+                'show.bs.tab',
+                function (e) {
+                    var tabName = e.target.href;
+                    var items = tabName.split("#");
+                    $.cookie("openTag",items[1], { expires: 1800 });
+                }
+            );
+
+            $("#mainContent").show();
+
+        </script>
+
+    </body>
+
+</html>
+

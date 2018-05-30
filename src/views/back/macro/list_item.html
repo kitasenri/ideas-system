@@ -1,0 +1,122 @@
+{{ define "list_item" }}
+
+<table class="table table-striped table-bordered">
+
+    <thead>
+        <tr class="table-info">
+
+            <td width="5%">
+                #
+            </td>
+
+            <td width="15%">
+                ID<br />
+                Name（管理用）
+            </td>
+
+            <td width="20%">
+                STG<br/>
+                更新日<br/>
+                バージョン<br/>
+                ステータス
+            </td>
+
+            <td width="20%">
+                PRD<br/>
+                更新日<br/>
+                バージョン<br/>
+                ステータス
+            </td>
+
+            <td width="10%" style="text-align: center;">
+                詳細
+            </td>
+
+            <td width="10%" style="text-align: center;">
+                同期<br />
+                公開状態
+            </td>
+
+        </tr>
+    </thead>
+    
+    <tbody>
+    {{ range $ii, $vv := . }}
+
+        <tr 
+            {{ if $vv.Item_Deleted }} 
+                style="background-color: #a9a9a9;"
+            {{ else if lt $vv.Item_Version $vv.ItemStage_Version }}
+                style="background-color: #f6ced8;" 
+            {{ end }}
+        >
+
+            <td>
+                {{ $ii | increment }}
+            </td>
+
+            <td>
+                {{ $vv.Id }}<br />
+                {{ $vv.Item_Name }}
+            </td>
+
+            <td>
+                {{ $vv.ItemStage_UpdateAt }}<br />
+                {{ $vv.ItemStage_Version }}<br />
+                {{ if $vv.ItemStage_Deleted }} 非公開 {{ else }} 公開 {{ end }}
+            </td>
+
+            <td>
+            {{ if eq $vv.Item_Version 0 }} 
+                --<br />
+                --<br />
+                --
+            {{ else }}
+                {{ $vv.Item_UpdateAt }}<br />
+                {{ $vv.Item_Version }}<br />
+                {{ if $vv.Item_Deleted }} 非公開 {{ else }} 公開 {{ end }}
+            {{ end }}
+            </td>
+
+            <td align="center">
+
+                <a href="/edit_item?itemKey={{ $vv.Id }}" class="btn btn-primary" role="button">
+                    詳細
+                </a>
+
+            </td>
+
+            <td align="center">
+
+                {{ if ne $vv.Item_Version $vv.ItemStage_Version }}
+
+                    <button name="syncButton" 
+                        class="btn btn-success"
+                        data-type="item"
+                        data-id="{{ $vv.Id }}"
+                    >
+                        同期
+                    </button>
+                {{ end }}
+
+                <br />
+                <br />
+
+                <button name="updateDeletedButton"
+                    class="btn btn-dark" 
+                    data-type="item"
+                    data-id="{{ $vv.Id }}"
+                    data-status="{{ $vv.Item_Deleted }}"
+                >
+                    {{ if $vv.Item_Deleted }} 公開 {{ else }} 非公開 {{ end }}
+                </button>                
+
+            </td>
+
+        </tr>
+    {{ end }}
+    </tbody>
+
+</table>
+
+{{ end }}

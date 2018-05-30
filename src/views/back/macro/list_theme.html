@@ -1,0 +1,140 @@
+{{ define "list_theme" }}
+
+<table class="table table-striped table-bordered">
+
+    <thead>
+        <tr class="table-info">
+
+            <td width="5%">
+                #
+            </td>
+
+            <td width="15%">
+                ID<br />
+                Name（管理用）
+            </td>
+
+            <td width="20%">
+                STG<br/>
+                更新日<br/>
+                バージョン<br/>
+                ステータス
+            </td>
+
+            <td width="20%">
+                PRD<br/>
+                更新日<br/>
+                バージョン<br/>
+                ステータス
+            </td>
+
+            <td width="10%" style="text-align: center;">
+                詳細<br />
+                一覧<br />
+                WhiteList
+            </td>
+
+            <td width="10%" style="text-align: center;">
+                同期<br />
+                公開状態
+            </td>
+
+        </tr>
+    </thead>
+    
+    <tbody>
+    {{ range $ii, $vv := . }}
+
+        <tr 
+            {{ if $vv.Theme_Deleted }} 
+                style="background-color: #a9a9a9;"
+            {{ else if lt $vv.Theme_Version $vv.ThemeStage_Version }}
+                style="background-color: #f6ced8;" 
+            {{ end }}
+        >
+
+            <td>
+                {{ $ii | increment }}
+            </td>
+
+            <td>
+                {{ $vv.Id }}<br />
+                {{ $vv.Theme_Name }}
+            </td>
+
+            <td>
+                {{ $vv.ThemeStage_UpdateAt }}<br />
+                {{ $vv.ThemeStage_Version }}<br />
+                {{ if $vv.ThemeStage_Deleted }} 非公開 {{ else }} 公開 {{ end }}
+            </td>
+
+            <td>
+            {{ if eq $vv.Theme_Version 0 }} 
+                --<br />
+                --<br />
+                --
+            {{ else }}
+                {{ $vv.Theme_UpdateAt }}<br />
+                {{ $vv.Theme_Version }}<br />
+                {{ if $vv.Theme_Deleted }} 非公開 {{ else }} 公開 {{ end }}
+            {{ end }}
+            </td>
+
+            <td align="center">
+
+                <a href="/edit_theme?themeKey={{ $vv.Id }}" 
+                   class="btn btn-primary" role="button">
+                    詳細
+                </a>
+
+                <br />
+                <br />
+
+                <a href="/theme_pages?themeKey={{ $vv.Id }}" 
+                   class="btn btn-primary" role="button">
+                    Page一覧
+                </a>
+
+                 <br />
+                 <br />
+
+                <a href="/edit_whitelist?themeKey={{ $vv.Id }}" 
+                   class="btn btn-primary" role="button">
+                    WhiteList
+                </a>
+
+            </td>
+
+            <td align="center">      
+
+                {{ if ne $vv.Theme_Version $vv.ThemeStage_Version }}
+                    <button name="syncButton" 
+                        class="btn btn-success"
+                        data-type="theme"
+                        data-id="{{ $vv.Id }}"
+                    >
+                        同期
+                    </button>
+                {{ end }}
+
+                <br />
+                <br />
+
+                <button name="updateDeletedButton"
+                    class="btn btn-dark" 
+                    data-type="theme"
+                    data-id="{{ $vv.Id }}"
+                    data-status="{{ $vv.Theme_Deleted }}"
+                >
+                    {{ if $vv.Theme_Deleted }} 公開 {{ else }} 非公開 {{ end }}
+                </button>                
+
+            </td>
+
+        </tr>
+    {{ end }}
+    </tbody>
+
+</table>
+
+{{ end }}

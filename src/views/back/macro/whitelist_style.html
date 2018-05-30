@@ -1,0 +1,74 @@
+{{ define "whitelist_style" }}
+
+{{ $theme_id := .theme_id }}
+{{ $whitelists := .whitelists }}
+{{ $style_stages := .style_stages }}
+
+<table class="table table-striped table-bordered">
+    
+    <thead>
+        <tr class="table-info">
+
+            <td width="20%">
+                #
+            </td>
+
+            <td width="60%">
+                ID<br />
+                Name（管理用）
+            </td>
+
+            <td width="20%" style="text-align: center;">
+                登録
+            </td>
+
+        </tr>
+    </thead>
+    
+    <tbody>
+    {{ range $ii, $vv := $style_stages }}
+
+        {{ $is_whitelist := is_whitelist_style $vv.Id $whitelists }}
+        <tr>
+
+            <td>
+                {{ $ii | increment }}
+            </td>
+
+            <td>
+                {{ $vv.Id }}<br />
+                {{ $vv.Name }}
+            </td>
+
+            <td align="center">
+            {{ if $is_whitelist }}
+                <button name="updateButton" 
+                    class="btn btn-outline-danger"
+                    data-value="{{ $is_whitelist }}"
+                    data-theme="{{ $theme_id }}"
+                    data-style="{{ $vv.Id }}"
+                    data-item=""
+                >
+                    解除
+                </button>
+            {{ else }}
+                <button name="updateButton" 
+                    class="btn btn-outline-success"
+                    data-value="{{ $is_whitelist }}"
+                    data-theme="{{ $theme_id }}"
+                    data-style="{{ $vv.Id }}"
+                    data-item=""
+                >
+                    登録
+                </button>
+            {{ end }}
+
+            </td>
+
+        </tr>
+    {{ end }}
+    </tbody>
+
+</table>
+
+{{ end }}

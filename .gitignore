@@ -1,0 +1,8 @@
+debug
+.DS_Store
+github.com/
+golang.org/
+sourcegraph.com/
+logs/*
+
+
