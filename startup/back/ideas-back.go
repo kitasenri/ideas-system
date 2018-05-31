@@ -64,9 +64,15 @@ func main() {
 	createBackPageRouting()
 
 	// Start server
-	config := core.GetConfig()
-	flag.Set("bind", ":"+config.Launch.Back.Port)
-	goji.Serve()
+	if core.IsProduction() {
+		// Production environment
+		goji.ServeListener(core.GetListener())
+	} else {
+		// Test environment
+		config := core.GetConfig()
+		flag.Set("bind", ":"+config.Launch.Back.Port)
+		goji.Serve()
+	}
 }
 
 // Create common routing

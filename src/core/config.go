@@ -4,7 +4,8 @@ import (
 	"encoding/json"
 	"flag"
 	"io/ioutil"
-	"strconv"
+	"net"
+	"os"
 
 	"src/consts"
 
@@ -16,6 +17,8 @@ import (
 //---------------------------------------------------------------------
 // Config instance
 var g_config *Config
+var g_is_production bool = false
+var g_listener net.Listener
 
 type Config struct {
 	Master DBInfo     `json:"master"`
@@ -58,12 +61,20 @@ type ServerInfo struct {
 //---------------------------------------------------------------------
 func init() {
 
+	fd := flag.Uint("fd", 0, "File descriptor to listen and serve.")
 	flag.Parse()
-	arg, error := strconv.Atoi(flag.Arg(0))
 
 	// check resource path
 	resource_path := consts.PATH_TEST
-	if (error != nil) && (arg == consts.ENV_PRODUCTION) {
+	if *fd != 0 {
+
+		listener, err := net.FileListener(os.NewFile(uintptr(*fd), ""))
+		if err != nil {
+			panic(err)
+		}
+
+		g_listener = listener
+		g_is_production = true
 		resource_path = consts.PATH_PRODUCTION
 	}
 
@@ -79,4 +90,14 @@ func init() {
 // Get config from resources
 func GetConfig() *Config {
 	return g_config
+}
+
+// Is production
+func IsProduction() bool {
+	return g_is_production
+}
+
+// Get listener
+func GetListener() net.Listener {
+	return g_listener
 }
