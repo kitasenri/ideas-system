@@ -42,13 +42,13 @@ Please input the below command and run the front & back.
 
     Launch front
     $ cd ./src/startup/front/
-    $ ln -s ./../../resources/config_test.json  config.json
+    $ ln -s ./../../resources/config_production.json  config.json
     $ go build -x 
     $ circusd ideas-back.ini --daemon
 
     Launch back
     $ cd ./src/startup/back/
-    $ ln -s ./../../resources/config_test.json  config.json
+    $ ln -s ./../../resources/config_production.json  config.json
     $ go build -x 
     $ circusd ideas-front.ini --daemon
 
