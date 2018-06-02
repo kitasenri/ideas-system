@@ -51,3 +51,6 @@ Please input the below command and run the front & back.
     $ ln -s ./../../resources/config_test.json  config.json
     $ go build -x 
     $ circusd ideas-front.ini --daemon
+
+    Reload app
+    $ circusctl reload ${front|back}
