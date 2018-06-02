@@ -32,11 +32,15 @@ You can create tables by using model struct.
 
 Please input the below command and run the front & back.
 
-    $ go run ./startup/front/ideas-front.go
-    $ go run ./startup/front/ideas-back.go
+    If circus is not installed...
+    $ pip install tornado==4.5.3 circus
 
+    Launch front
+    $ cd ./src/startup/front/
+    $ go build -x 
+    $ circusd ideas-back.ini
 
-
-
-
-
+    Launch back
+    $ cd ./src/startup/back/
+    $ go build -x 
+    $ circusd ideas-front.ini
