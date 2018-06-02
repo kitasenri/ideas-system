@@ -1,0 +1,38 @@
+{
+  "master" : {
+    "host"   : "tcp(192.168.1.1:3306)",
+    "user"   : "ideas",
+    "pass"   : "ideas",
+    "schema" : "app_ideas"
+  },
+  "slave" : {
+    "host"   : "tcp(192.168.1.1:3306)",
+    "user"   : "ideas",
+    "pass"   : "ideas",
+    "schema" : "app_ideas"
+  },
+  "log" : {
+    "front" : {
+      "info" : "logs/app-front-info.log",
+      "error" : "logs/app-front-error.log"
+    },
+    "back" : {
+      "info" : "logs/app-back-info.log",
+      "error" : "logs/app-back-error.log"
+    }
+  },
+  "launch" : {
+    "front" : {
+      "port" : "18080",
+      "scheme": "https",
+      "domain" : "menuet.me",
+      "context": "ideas"
+    },
+    "back" : {
+      "port" : "18081",
+      "scheme": "https",
+      "domain" : "menuet.me",
+      "context": "ideas"
+    }
+  }
+}
