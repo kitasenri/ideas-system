@@ -1,6 +1,6 @@
 debug
-front
-back
+startup/front/front
+startup/back/back
 .DS_Store
 github.com/
 golang.org/
