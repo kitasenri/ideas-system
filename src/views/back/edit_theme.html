@@ -14,6 +14,7 @@
                 'Title'                : _w.ID_TEXTINPUT,
                 'Css'                  : _w.ID_TEXTAREA,
                 'Script'               : _w.ID_TEXTAREA,
+                'AddTags'               : _w.ID_TEXTAREA,
                 'SearchWindowTitle'    : _w.ID_TEXTINPUT,
                 'SearchWindowMessage'  : _w.ID_TEXTINPUT,
                 'SearchWindowImageURL' : _w.ID_TEXTINPUT,
@@ -176,7 +177,7 @@
             {{/* Css */}}
             <div class="form-group row">
                 <label for="Css" class="col-2 col-form-label">
-                    Page CSS
+                    追加のCSS
                 </label>
                 <div class="col-10">
                     <textarea id="Css" rows="5" class="form-control">{{ .theme.Css }}</textarea>
@@ -187,13 +188,22 @@
             {{/* Script */}}
             <div class="form-group row">
                 <label for="Script" class="col-2 col-form-label">
-                    Page Script
+                    追加のJavascript
                 </label>
                 <div class="col-10">
                     <textarea id="Script" rows="5" class="form-control">{{ .theme.Script }}</textarea>
                 </div>
             </div>
 
+            {{/* AddTags */}}
+            <div class="form-group row">
+                <label for="AddTags" class="col-2 col-form-label">
+                    追加のヘッダータグ
+                </label>
+                <div class="col-10">
+                    <textarea id="AddTags" rows="5" class="form-control">{{ .theme.AddTags }}</textarea>
+                </div>
+            </div>
 
             {{/* SearchWindowTitle */}}
             <div class="form-group row">

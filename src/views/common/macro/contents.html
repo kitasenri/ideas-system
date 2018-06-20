@@ -20,79 +20,79 @@
         {{ else if eq $vv.Value $const_contents.THEME_MESSAGE1.Value }}
 
             <div id="ThemeMessage1">
-                {{ $theme.Message1 }}
+                {{ $theme.Message1 | safe }}
             </div>
 
         {{ else if eq $vv.Value $const_contents.THEME_MESSAGE2.Value }}
 
             <div id="ThemeMessage2">
-                {{ $theme.Message2 }}
+                {{ $theme.Message2 | safe }}
             </div>
 
         {{ else if eq $vv.Value $const_contents.THEME_MESSAGE3.Value }}
 
             <div id="ThemeMessage3">
-                {{ $theme.Message3 }}
+                {{ $theme.Message3 | safe }}
             </div>
 
         {{ else if eq $vv.Value $const_contents.THEME_MESSAGE4.Value }}
 
             <div id="ThemeMessage4">
-                {{ $theme.Message4 }}
+                {{ $theme.Message4 | safe }}
             </div>
 
         {{ else if eq $vv.Value $const_contents.THEME_MESSAGE5.Value }}
 
             <div id="ThemeMessage5">
-                {{ $theme.Message5 }}
+                {{ $theme.Message5 | safe }}
             </div>
 
         {{ else if eq $vv.Value $const_contents.STYLE_MESSAGE1.Value }}
 
             <div id="StyleMessage1">
-                {{ $style.Message1 }}
+                {{ $style.Message1 | safe }}
             </div>
 
         {{ else if eq $vv.Value $const_contents.STYLE_MESSAGE2.Value }}
 
             <div id="StyleMessage2">
-                {{ $style.Message2 }}
+                {{ $style.Message2 | safe }}
             </div>
 
         {{ else if eq $vv.Value $const_contents.ITEM_MESSAGE1.Value }}
         
             <div id="ItemMessage1">
-                {{ $item.Message1 }}
+                {{ $item.Message1 | safe }}
             </div>
 
         {{ else if eq $vv.Value $const_contents.ITEM_MESSAGE2.Value }}
 
             <div id="ItemMessage2">
-                {{ $item.Message2 }}
+                {{ $item.Message2 | safe }}
             </div>
 
         {{ else if eq $vv.Value $const_contents.ITEM_PARTS1.Value }}
 
             <div id="ItemParts1">
-                Item Parts1
+                
             </div>
 
         {{ else if eq $vv.Value $const_contents.ITEM_PARTS2.Value }}
 
             <div id="ItemParts2">
-                Item Parts2
+                
             </div>
 
         {{ else if eq $vv.Value $const_contents.ITEM_PARTS3.Value }}
 
             <div id="ItemParts3">
-                Item Parts3
+                
             </div>
 
         {{ else if eq $vv.Value $const_contents.SITE_MAP.Value }}
 
             <div id="Sitemap">
-                Sitemap
+                
             </div>
 
         {{ end }}    

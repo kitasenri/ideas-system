@@ -8,7 +8,6 @@ import (
 	"os/signal"
 	"regexp"
 
-	"src/consts"
 	"src/controllers/api"
 	"src/controllers/back"
 	"src/controllers/common"
@@ -79,7 +78,7 @@ func main() {
 func createBackCommonRouting() {
 
 	// (1) set document root
-	docRoot := consts.RELATIVE_PATH + "webroot"
+	docRoot := core.GetRelativePath() + "webroot"
 	docPath := http.FileServer(http.Dir(docRoot))
 	staticPattern := regexp.MustCompile("^/(css|js|images)")
 

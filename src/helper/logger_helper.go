@@ -2,7 +2,6 @@ package helper
 
 import (
 	"os"
-	"src/consts"
 	"src/core"
 
 	"github.com/sirupsen/logrus"
@@ -23,7 +22,7 @@ func init() {
 
 	// create back logger
 	f1, _ := os.OpenFile(
-		consts.RELATIVE_PATH+config.Log.Front.Info,
+		core.GetRelativePath()+config.Log.Front.Info,
 		os.O_RDWR|os.O_CREATE|os.O_APPEND,
 		0666)
 	g_front_info = logrus.New()
@@ -32,7 +31,7 @@ func init() {
 
 	// create front logger
 	f2, _ := os.OpenFile(
-		consts.RELATIVE_PATH+config.Log.Front.Error,
+		core.GetRelativePath()+config.Log.Front.Error,
 		os.O_RDWR|os.O_CREATE|os.O_APPEND,
 		0666)
 	g_front_error = logrus.New()
@@ -41,7 +40,7 @@ func init() {
 
 	// create back logger
 	f3, _ := os.OpenFile(
-		consts.RELATIVE_PATH+config.Log.Back.Info,
+		core.GetRelativePath()+config.Log.Back.Info,
 		os.O_RDWR|os.O_CREATE|os.O_APPEND,
 		0666)
 	g_back_info = logrus.New()
@@ -50,7 +49,7 @@ func init() {
 
 	// create front logger
 	f4, _ := os.OpenFile(
-		consts.RELATIVE_PATH+config.Log.Back.Error,
+		core.GetRelativePath()+config.Log.Back.Error,
 		os.O_RDWR|os.O_CREATE|os.O_APPEND,
 		0666)
 	g_back_error = logrus.New()

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"core"
-	"models"
+	"src/core"
+	"src/models"
 )
 
 //---------------------------------------------------------------------

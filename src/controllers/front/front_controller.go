@@ -1,7 +1,7 @@
 package controllers_front
 
 import (
-	"src/consts"
+	"src/core"
 	"src/helper"
 	"src/models"
 
@@ -36,11 +36,11 @@ func Index(c web.C, w http.ResponseWriter, r *http.Request) {
 	}
 
 	f, e := helper.GetMacroTemplate("index.html").ParseFiles(
-		consts.RELATIVE_PATH+"src/views/common/index.html",
-		consts.RELATIVE_PATH+"src/views/common/macro/head.html",
-		consts.RELATIVE_PATH+"src/views/common/macro/contents.html",
-		consts.RELATIVE_PATH+"src/views/common/macro/footer.html",
-		consts.RELATIVE_PATH+"src/views/common/macro/navigation.html",
+		core.GetRelativePath()+"src/views/common/index.html",
+		core.GetRelativePath()+"src/views/common/macro/head.html",
+		core.GetRelativePath()+"src/views/common/macro/contents.html",
+		core.GetRelativePath()+"src/views/common/macro/footer.html",
+		core.GetRelativePath()+"src/views/common/macro/navigation.html",
 	)
 
 	t := template.Must(f, e)
@@ -59,7 +59,7 @@ func Sitemap(c web.C, w http.ResponseWriter, r *http.Request) {
 	}
 
 	f, e := helper.GetMacroTemplate("sitemap.xml").ParseFiles(
-		consts.RELATIVE_PATH + "src/views/front/sitemap.xml",
+		core.GetRelativePath() + "src/views/front/sitemap.xml",
 	)
 
 	// Set XML Header

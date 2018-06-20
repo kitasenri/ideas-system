@@ -172,6 +172,8 @@ func copyTheme(theme_stage models.Theme_Stage) models.Theme {
 	theme.Title = theme_stage.Title
 	theme.Css = theme_stage.Css
 	theme.Script = theme_stage.Script
+	theme.AddTags = theme_stage.AddTags
+
 	theme.SearchWindowTitle = theme_stage.SearchWindowTitle
 	theme.SearchWindowMessage = theme_stage.SearchWindowMessage
 	theme.SearchWindowImageURL = theme_stage.SearchWindowImageURL

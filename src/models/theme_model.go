@@ -18,6 +18,7 @@ type Theme struct {
 	Title  string `sql:"type:text;" gorm:"not null;"`
 	Css    string `sql:"type:text;" gorm:"not null;"`
 	Script string `sql:"type:text;" gorm:"not null;"`
+	AddTags string `sql:"type:text;" gorm:"not null;"`
 
 	SearchWindowTitle    string `sql:"type:text;" gorm:"not null;"`
 	SearchWindowMessage  string `sql:"type:text;" gorm:"not null;"`

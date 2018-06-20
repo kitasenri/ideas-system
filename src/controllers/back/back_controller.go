@@ -1,7 +1,7 @@
 package controllers_back
 
 import (
-	"src/consts"
+	"src/core"
 	"src/helper"
 	"src/models"
 	"src/utils"
@@ -33,12 +33,12 @@ func Index(c web.C, w http.ResponseWriter, r *http.Request) {
 	}
 
 	f, e := helper.GetMacroTemplate("index.html").ParseFiles(
-		consts.RELATIVE_PATH+"src/views/back/index.html",
-		consts.RELATIVE_PATH+"src/views/back/macro/head.html",
-		consts.RELATIVE_PATH+"src/views/back/macro/navigation.html",
-		consts.RELATIVE_PATH+"src/views/back/macro/list_theme.html",
-		consts.RELATIVE_PATH+"src/views/back/macro/list_style.html",
-		consts.RELATIVE_PATH+"src/views/back/macro/list_item.html",
+		core.GetRelativePath()+"src/views/back/index.html",
+		core.GetRelativePath()+"src/views/back/macro/head.html",
+		core.GetRelativePath()+"src/views/back/macro/navigation.html",
+		core.GetRelativePath()+"src/views/back/macro/list_theme.html",
+		core.GetRelativePath()+"src/views/back/macro/list_style.html",
+		core.GetRelativePath()+"src/views/back/macro/list_item.html",
 	)
 
 	t := template.Must(f, e)
@@ -63,10 +63,10 @@ func EditTheme(c web.C, w http.ResponseWriter, r *http.Request) {
 	}
 
 	f, e := helper.GetMacroTemplate("edit_theme.html").ParseFiles(
-		consts.RELATIVE_PATH+"src/views/back/edit_theme.html",
-		consts.RELATIVE_PATH+"src/views/back/macro/head.html",
-		consts.RELATIVE_PATH+"src/views/back/macro/navigation.html",
-		consts.RELATIVE_PATH+"src/views/back/macro/edit_footer.html",
+		core.GetRelativePath()+"src/views/back/edit_theme.html",
+		core.GetRelativePath()+"src/views/back/macro/head.html",
+		core.GetRelativePath()+"src/views/back/macro/navigation.html",
+		core.GetRelativePath()+"src/views/back/macro/edit_footer.html",
 	)
 
 	t := template.Must(f, e)
@@ -89,10 +89,10 @@ func EditStyle(c web.C, w http.ResponseWriter, r *http.Request) {
 		"isEdit": utils.IsEdit(id)}
 
 	f, e := helper.GetMacroTemplate("edit_style.html").ParseFiles(
-		consts.RELATIVE_PATH+"src/views/back/edit_style.html",
-		consts.RELATIVE_PATH+"src/views/back/macro/head.html",
-		consts.RELATIVE_PATH+"src/views/back/macro/navigation.html",
-		consts.RELATIVE_PATH+"src/views/back/macro/edit_footer.html",
+		core.GetRelativePath()+"src/views/back/edit_style.html",
+		core.GetRelativePath()+"src/views/back/macro/head.html",
+		core.GetRelativePath()+"src/views/back/macro/navigation.html",
+		core.GetRelativePath()+"src/views/back/macro/edit_footer.html",
 	)
 
 	t := template.Must(f, e)
@@ -116,10 +116,10 @@ func EditItem(c web.C, w http.ResponseWriter, r *http.Request) {
 	}
 
 	f, e := helper.GetMacroTemplate("edit_item.html").ParseFiles(
-		consts.RELATIVE_PATH+"src/views/back/edit_item.html",
-		consts.RELATIVE_PATH+"src/views/back/macro/head.html",
-		consts.RELATIVE_PATH+"src/views/back/macro/navigation.html",
-		consts.RELATIVE_PATH+"src/views/back/macro/edit_footer.html",
+		core.GetRelativePath()+"src/views/back/edit_item.html",
+		core.GetRelativePath()+"src/views/back/macro/head.html",
+		core.GetRelativePath()+"src/views/back/macro/navigation.html",
+		core.GetRelativePath()+"src/views/back/macro/edit_footer.html",
 	)
 
 	t := template.Must(f, e)
@@ -152,11 +152,11 @@ func EditWhiteList(c web.C, w http.ResponseWriter, r *http.Request) {
 	}
 
 	f, e := helper.GetMacroTemplate("edit_whitelist.html").ParseFiles(
-		consts.RELATIVE_PATH+"src/views/back/edit_whitelist.html",
-		consts.RELATIVE_PATH+"src/views/back/macro/head.html",
-		consts.RELATIVE_PATH+"src/views/back/macro/navigation.html",
-		consts.RELATIVE_PATH+"src/views/back/macro/whitelist_style.html",
-		consts.RELATIVE_PATH+"src/views/back/macro/whitelist_item.html",
+		core.GetRelativePath()+"src/views/back/edit_whitelist.html",
+		core.GetRelativePath()+"src/views/back/macro/head.html",
+		core.GetRelativePath()+"src/views/back/macro/navigation.html",
+		core.GetRelativePath()+"src/views/back/macro/whitelist_style.html",
+		core.GetRelativePath()+"src/views/back/macro/whitelist_item.html",
 	)
 
 	t := template.Must(f, e)
@@ -187,10 +187,10 @@ func ThemePages(c web.C, w http.ResponseWriter, r *http.Request) {
 	}
 
 	f, e := helper.GetMacroTemplate("theme_pages.html").ParseFiles(
-		consts.RELATIVE_PATH+"src/views/back/theme_pages.html",
-		consts.RELATIVE_PATH+"src/views/back/macro/head.html",
-		consts.RELATIVE_PATH+"src/views/back/macro/navigation.html",
-		consts.RELATIVE_PATH+"src/views/back/macro/whitelist_style.html",
+		core.GetRelativePath()+"src/views/back/theme_pages.html",
+		core.GetRelativePath()+"src/views/back/macro/head.html",
+		core.GetRelativePath()+"src/views/back/macro/navigation.html",
+		core.GetRelativePath()+"src/views/back/macro/whitelist_style.html",
 	)
 
 	t := template.Must(f, e)
@@ -217,11 +217,11 @@ func StagePage(c web.C, w http.ResponseWriter, r *http.Request) {
 	}
 
 	f, e := helper.GetMacroTemplate("index.html").ParseFiles(
-		consts.RELATIVE_PATH+"src/views/common/index.html",
-		consts.RELATIVE_PATH+"src/views/common/macro/head.html",
-		consts.RELATIVE_PATH+"src/views/common/macro/contents.html",
-		consts.RELATIVE_PATH+"src/views/common/macro/footer.html",
-		consts.RELATIVE_PATH+"src/views/common/macro/navigation.html",
+		core.GetRelativePath()+"src/views/common/index.html",
+		core.GetRelativePath()+"src/views/common/macro/head.html",
+		core.GetRelativePath()+"src/views/common/macro/contents.html",
+		core.GetRelativePath()+"src/views/common/macro/footer.html",
+		core.GetRelativePath()+"src/views/common/macro/navigation.html",
 	)
 
 	t := template.Must(f, e)

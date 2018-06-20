@@ -19,6 +19,7 @@ import (
 var g_config *Config
 var g_is_production bool = false
 var g_listener net.Listener
+var g_relative_path string
 
 type Config struct {
 	Master DBInfo     `json:"master"`
@@ -100,4 +101,15 @@ func IsProduction() bool {
 // Get listener
 func GetListener() net.Listener {
 	return g_listener
+}
+
+// Get relative path
+func GetRelativePath() string {
+
+	if g_is_production {
+		return "./../"
+	} else {
+		return "./../../"
+	}
+
 }
