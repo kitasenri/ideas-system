@@ -54,3 +54,37 @@ Please input the below command and run the front & back.
 
     Reload app
     $ circusctl reload ${front|back}
+
+#### API Gateway
+
+Please add the rewrite rule by using nginx or other proxy server.
+The below example is for nginx.
+
+    server {
+
+    listen       443;
+    server_name  your.domain.name;
+
+    access_log  /var/log/nginx/front/access.log  main;
+    error_log   /var/log/nginx/front/error.log error;
+
+    proxy_send_timeout 60;
+    proxy_read_timeout 60;
+    proxy_connect_timeout 60;
+
+    proxy_set_header    Host                   $host;
+    proxy_set_header    X-Real-IP              $remote_addr;
+    proxy_set_header    X-Forwarded-Host       $host;
+    proxy_set_header    X-Forwarded-Server     $host;
+    proxy_set_header    X-Forwarded-Proto      $scheme;
+    proxy_set_header    X-Forwarded-For        $proxy_add_x_forwarded_for;
+
+    location / {
+
+        rewrite ^/(.*)_(.*)_(.*)$ /?themeKey=$1&styleKey=$2&itemKey=$3 break;
+
+        proxy_pass http://ideas-front:18080;
+
+    }
+
+    }
